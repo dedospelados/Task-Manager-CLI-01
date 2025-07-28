@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TaskManager.StatusEnum
+namespace TaskManager.ServicesInterfaces
 {
-    public enum Status
+    internal interface ServiciosIF
     {
-        ToDone =1,
-        DoningIt =2,
-        Done =3
+
 
     }
 }

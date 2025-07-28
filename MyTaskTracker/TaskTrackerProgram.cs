@@ -5,17 +5,19 @@ using System.Runtime.CompilerServices;
 using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
-using BurbujaClass;
+using TaskTracker.BurbujaClass;
 
 
-
+Console.BackgroundColor = ConsoleColor.DarkGreen;
+Console.ForegroundColor = ConsoleColor.White;
     static void WelcomeUser()
     {
         Console.WriteLine("let me manage ur task broski");
         Console.ReadLine();
-
+        
+        //Console.ResetColor();
     }
-        //Console.WriteLine("Want me to manage some task for u? \nEnter help to see a list of commands");
+        
     while (true)
     {
         WelcomeUser();
