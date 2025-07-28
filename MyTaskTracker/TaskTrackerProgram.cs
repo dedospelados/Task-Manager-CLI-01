@@ -5,29 +5,20 @@ using System.Runtime.CompilerServices;
 using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
+using BurbujaClass;
 
 namespace Task_Manager_CLI_01
 {
 
-    public class Racistas
-    {
-        public string? Name { get; set; }
-
-        public int RaceNumber { get; set; }
-
-        public DateTime DateTime { get; set; }
-
-        static void WelcomeUser()
-        {
-            Console.WriteLine("let me manage ur task broski");
-        }
-    }
+    
+    
     public class TaskTrackerProgram
     {
         static void WelcomeUser()
         {
             Console.WriteLine("let me manage ur task broski");
         }
+
         static void Main(string[] args)
         {
 
