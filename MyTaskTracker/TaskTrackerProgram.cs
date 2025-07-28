@@ -7,28 +7,21 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
 using BurbujaClass;
 
-namespace Task_Manager_CLI_01
-{
 
-    
-    
-    public class TaskTrackerProgram
+
+    static void WelcomeUser()
     {
-        static void WelcomeUser()
-        {
-            Console.WriteLine("let me manage ur task broski");
-        }
+        Console.WriteLine("let me manage ur task broski");
+        Console.ReadLine();
 
-        static void Main(string[] args)
-        {
-
-            //Console.WriteLine("Want me to manage some task for u? \nEnter help to see a list of commands");
-
-            WelcomeUser();
-
-
-            Console.ReadKey(true);
-        }
     }
-}
+        //Console.WriteLine("Want me to manage some task for u? \nEnter help to see a list of commands");
+    while (true)
+    {
+        WelcomeUser();
+    }
+
+    
+
+
 
