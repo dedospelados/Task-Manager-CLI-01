@@ -16,25 +16,28 @@ namespace Task_Manager_CLI_01
         public int RaceNumber { get; set; }
 
         public DateTime DateTime { get; set; }
-    }
 
+        static void WelcomeUser()
+        {
+            Console.WriteLine("let me manage ur task broski");
+        }
+    }
     public class TaskTrackerProgram
     {
-       
+        static void WelcomeUser()
+        {
+            Console.WriteLine("let me manage ur task broski");
+        }
         static void Main(string[] args)
         {
 
-            Racistas ElGoat = new Racistas
-            {
-                Name = "Max",
-                RaceNumber = 33,
-                DateTime = DateTime.UtcNow
-            };
+            //Console.WriteLine("Want me to manage some task for u? \nEnter help to see a list of commands");
 
-            Console.WriteLine("clave?");
+            WelcomeUser();
 
-            string JsonifiedObj = JsonSerializer.Serialize(ElGoat);
 
+            Console.ReadKey(true);
         }
     }
 }
+
