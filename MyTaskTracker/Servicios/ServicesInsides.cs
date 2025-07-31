@@ -17,9 +17,9 @@ namespace TaskManager.Services
 
         public Task<int> AddNewTask(string title)
         {
-            try 
+            try
             {
-                var burbujasTasks = new List<BurbujaTask>();
+                var burbujero = new List<BurbujaTask>();
                 var burbuja = new BurbujaTask
                 {
                     Id = GetTaskId(),
@@ -28,26 +28,33 @@ namespace TaskManager.Services
                     DateUpd = DateTime.Now,
                     TaskStatus = Status.ToDone
                 };
-                
-                var FileCreationSuccessful = CreateFileIfNotExist();
-                
-                if (FileCreationSuccessful)
-               
+
+                var fileCreationSuccessful = CreateFileIfNotExist();
+
+                if (fileCreationSuccessful)
+
                 {
                     string tasksFromJsonFileString = File.ReadAllText(FilePath);
-                    if (!string.IsNullOrEmpty(tasksFromJsonFileString)) 
+                    if (!string.IsNullOrEmpty(tasksFromJsonFileString))
                     {
-                        burbujasTasks = JsonSerializer.Deserialize<List<BurbujaTask>>(tasksFromJsonFileString);
+                        burbujero = JsonSerializer.Deserialize<List<BurbujaTask>>(tasksFromJsonFileString);
                     }
 
-                    burbujasTasks?.Add(burbuja);
-                    string updatedBurbujas = JsonSerializer.Serialize<List<BurbujaTask>>(burbujasTasks ?? new List<BurbujaTask>());
-                    File.WriteAllText(FilePath, updatedBurbujas);
+                    burbujero?.Add(burbuja);
+                    string updatedBurbujero = JsonSerializer.Serialize<List<BurbujaTask>>(burbujero ?? new List<BurbujaTask>());
+                    File.WriteAllText(FilePath, updatedBurbujero);
                     return Task.FromResult(burbuja.Id);
                 }
                 return Task.FromResult(0);
             }
-            return null;    
+            catch (Exception ex) 
+            {
+                Console.WriteLine("hubo un problema inflando esta burbuja, el error "+ ex.Message);
+                return Task.FromResult(0);
+
+            }
+            
         }
     }
-}
+ }
+
