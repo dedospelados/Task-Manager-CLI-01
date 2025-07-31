@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -55,6 +56,33 @@ namespace TaskManager.Services
             }
             
         }
+        public int GetTaskId() 
+        {
+            if (!File.Exists(FilePath))
+            {
+                return 1;
+            }
+            else 
+            {
+                string tasksFromJsonFileString = File.ReadAllText(FilePath);
+                if (!string.IsNullOrEmpty(tasksFromJsonFileString)) 
+                {
+                    var burbujero = JsonSerializer.Deserialize<List<BurbujaTask>>(tasksFromJsonFileString);
+                    if (burbujero != null && burbujero.Count > 0) 
+                    {
+                        return burbujero.OrderBy(x => x.Id).Last().Id + 1;
+                    }
+                }
+            }
+            return 331443;
+        }
+        public Task<bool> DeleteTask(int id)
+        //i also want to make it so that u can delete a task by title
+        {
+
+
+            return null;
+        } 
     }
  }
 

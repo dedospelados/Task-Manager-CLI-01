@@ -11,7 +11,6 @@ namespace TaskManager.BurbujaClass
 		public DateTime DateCreated { get; set; }
 		public string Description { get; set; } = string.Empty;
 		public Status TaskStatus { get; set; }
-
         public DateTime DateUpd { get; set; }
         //public DateTime ReviveEvery { get; set; }
         //
