@@ -106,6 +106,34 @@ namespace TaskManager.Services
         {
             string updatedBurbujas = JsonSerializer.Serialize<List<BurbujaTask>>(tasksFromJson.Result);
             File.WriteAllText(FilePath, updatedBurbujas);
+        }private static Task<List<BurbujaTask>> GetTasksFromjson() 
+        {
+            string TasksFromJsonString = File.ReadAllText(FilePath);
+            if (!string.IsNullOrEmpty(TasksFromJsonString)) 
+            {
+                return Task.FromResult(JsonSerializer.Deserialize<List<BurbujaTask>>(TasksFromJsonString) ?? []);
+            }
+            return Task.FromResult(new List<BurbujaTask>());
+        }
+        //i think the getalltasks method is redundant as it has the same workings that 
+        //the one above it and it should be changed in smeway to make it
+        //worth having it or just straight up remove it
+        public Task<List<BurbujaTask>> GetAllTasks() 
+        {
+            if (!File.Exists(FilePath)) 
+            {
+                System.Threading.Tasks.Task.FromResult(new List<BurbujaTask>());
+            }
+            string jsonString = File.ReadAllText(FilePath);
+
+            if (!string.IsNullOrEmpty(jsonString))
+            {
+                List<BurbujaTask> burbujasLista = JsonSerializer.Deserialize<List<BurbujaTask>>(jsonString);
+                return System.Threading.Tasks.Task.FromResult(burbujasLista ?? []);
+            }
+            else {
+                return System.Threading.Tasks.Task.FromResult(new List<BurbujaTask>());
+            }
         }
 
     }
