@@ -10,13 +10,12 @@ namespace TaskManager.ServicesInterfaces
     internal interface ServicesIF
     {
         Task<int> AddNewTask(String title);
-        Task<bool> DeleteTask(int id);
-        Task<bool> UpdateTask(int id, string title);
+        Task<bool> DeleteTask(int id);//!
+        Task<bool> UpdateTitle(int id, string title);
+        //Task<bool> UpdateDescription(string description); YA ME LO VOY A INVENTAR
         Task<bool> SetStatus(string status, int id);
-        //Task<bool> EditDescription(string description); YA ME LO VOY A INVENTAR
         Task<List<BurbujaTask>> GetAllTasks();
-        Task<List<BurbujaTask>> GetTaskByStatus(string status);
-        List<string> GetHelp();
+        List<string> GetHelp();//!
         
 
     }
