@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -120,21 +123,81 @@ namespace TaskManager.Services
         //worth having it or just straight up remove it
         public Task<List<BurbujaTask>> GetAllTasks() 
         {
-            if (!File.Exists(FilePath)) 
+            try
             {
-                System.Threading.Tasks.Task.FromResult(new List<BurbujaTask>());
-            }
-            string jsonString = File.ReadAllText(FilePath);
 
-            if (!string.IsNullOrEmpty(jsonString))
-            {
+                if (!File.Exists(FilePath)) 
+                {   
+                    System.Threading.Tasks.Task.FromResult(new List<BurbujaTask>());
+                }
+                string jsonString = File.ReadAllText(FilePath);
+
+                if (!string.IsNullOrEmpty(jsonString))
+                {
                 List<BurbujaTask> burbujasLista = JsonSerializer.Deserialize<List<BurbujaTask>>(jsonString);
                 return System.Threading.Tasks.Task.FromResult(burbujasLista ?? []);
+                //i think there will be an exception as the deserialized may return
+                //a null value and it should be accounted for, having that line above
+                //the if statement
+                }
+                else {
+                    return System.Threading.Tasks.Task.FromResult(new List<BurbujaTask>());
+                }
             }
-            else {
-                return System.Threading.Tasks.Task.FromResult(new List<BurbujaTask>());
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+        }public Task<bool> SetStatus(int id,string status)
+        {
+            if (!File.Exists(FilePath)) 
+            { 
+                return Task.FromResult(false);
+            }
+            
+            var tasksFromJson = GetTasksFromjson();
+
+            if (tasksFromJson.Result.Count >0)
+            {
+                var taskToBeUpd = tasksFromJson.Result.Where(x => x.Id == id).SingleOrDefault();
+                if(taskToBeUpd !=null)
+                {
+                    var updTask = new BurbujaTask
+                    {
+                        Id = id,
+                        Title = taskToBeUpd.Title,
+                        Description = taskToBeUpd.Description,
+                        DateUpd = DateTime.Now,
+                        TaskStatus = GetStatusToSet()
+
+                    };
+
+                    tasksFromJson.Result.Remove(taskToBeUpd);
+                    tasksFromJson.Result.Add(updTask);
+                    UpdateJsonFile(tasksFromJson);
+                    return Task.FromResult(true);
+                }
+               
+            }
+            
+            return Task.FromResult(false);
+        }private Status GetStatusToSet(string status)
+        {
+            switch (status)
+            {
+                case "mark-in-progress":
+                    return Status.ToDone;
+                case "mark-done":
+                    return Status.Done;
+                case "mark-todo":
+                    return Status.ToDone;
+                default:
+                    return Status.ToDone;
             }
         }
+
+
 
     }
  }
