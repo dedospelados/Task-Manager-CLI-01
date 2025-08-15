@@ -6,24 +6,14 @@ using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
 using TaskManager.BurbujaClass;
+using TaskManager.UtilitiesInsides;
 
 
-Console.BackgroundColor = ConsoleColor.DarkGreen;
-Console.ForegroundColor = ConsoleColor.White;
-    static void WelcomeUser()
-    {
-        Console.WriteLine("let me manage ur task broski");
-        Console.ReadLine();
-        
-        //Console.ResetColor();
-    }
-        
-    while (true)
-    {
-        WelcomeUser();
-    }
 
-    
+
+
+
+
 
 
 

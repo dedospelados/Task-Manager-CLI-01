@@ -1,33 +1,63 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Task_Manager_CLI_01.Utilities
+namespace TaskManager.UtilitiesInsides
 {
-    public class UtilitiesInsides
+    public static class UtilitiesInsides
     {
-        static string Comun(string stuacion)
+        public static void PrintInfoMessage(string message)
         {
-            string situacion = "laTipica";
-            switch (situacion)
+            //Console.BackgroundColor = ConsoleColor.DarkYellow;
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("\n"+message);
+            Console.ResetColor();
+        }public static void PrintHelpMessage(string message)
+        {
+           Console.ForegroundColor = ConsoleColor.DarkBlue;
+           Console.WriteLine("\n"+message);
+           Console.ResetColor();
+        }public static void PrintErrorMessage(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkRed;   
+            Console.WriteLine("\n"+message);    
+            Console.ResetColor();
+        }public static void PrintNumberMessage(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.WriteLine("\n" + message);
+            Console.ResetColor();
+        }public static void PrintCommandMessage(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("\n" + message);
+            Console.ResetColor();
+        }
+        public static List<string> ParseInput(string input)
+        {
+            var commandArgs = new List<string>();
+
+            var regex = new Regex(@"[\""].+?[\""]|[^ ]+");
+            var matches = regex.Matches(input);
+
+            foreach(Match match in matches)
             {
-                case "laTipica":
-                    Console.BackgroundColor = ConsoleColor.Green;
-                    break;
-                default:
-                    Console.BackgroundColor = ConsoleColor.Red;
-                    break;
-            } 
-            return "pilin";
+                //remove surrounding quotes if any
+                string value = match.Value.Trim('"');
+                commandArgs.Add(value);
+            }
+
+            return commandArgs;
         }
-        public string AmbienceChange() 
+        public static void ClearConsole()
         {
-                              
-            
-            return "pilin";
+            Console.Clear();
         }
-        
+
     }
+
 }

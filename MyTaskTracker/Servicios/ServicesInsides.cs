@@ -16,7 +16,7 @@ using TaskManager.StatusEnum;
 
 namespace TaskManager.Services
 {
-    public class ServicesInsides : ServicesIF
+    public class ServicesInsides : ServicesIF //SetStatus
     {
         private static string FileName = "BurbujaData.json";
         private static string FilePath = Path.Combine(Directory.GetCurrentDirectory(), FileName);
@@ -170,7 +170,7 @@ namespace TaskManager.Services
 
             return Task.FromResult(new List<BurbujaTask>());
         }
-        public Task<bool> SetStatus(int id, string status)
+        public Task<bool> SetStatus(string status, int id )
         {
             if (!File.Exists(FilePath))
             {
@@ -295,14 +295,14 @@ namespace TaskManager.Services
                 return true;
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                Console.WriteLine($"Archivo {FileName} erroneamente no posible creatinarlo, error" ex.Message);
+                Console.WriteLine($"Archivo {FileName} erroneamente no posible creatinarlo, error" + ex.Message);
                 return false;
             }
-            #endregion   
+            #endregion
         }
-
+    
     }
 }
  
